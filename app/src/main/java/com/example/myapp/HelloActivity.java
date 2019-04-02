@@ -20,10 +20,8 @@ public class HelloActivity extends AppCompatActivity implements OnCreateContextM
 
         out =  findViewById(R.id.textV);
         out.setText(R.string.btn_label);
-
         inp =findViewById(R.id.inp);
         String str= inp.getText().toString();
- 
         Button btn = findViewById(R.id.btn);
         btn.setOnClickListener(this);
     }
@@ -35,7 +33,7 @@ public class HelloActivity extends AppCompatActivity implements OnCreateContextM
             String text = inp.getText().toString();
             float c = Float.valueOf(text);
             float F = (c * 9) / 5 + 32;
-            out.setText("结果为" + String.format("%.3f", F));
+            out.setText("结果为" + String.format("%.2f", F));
         }
         catch (Exception e){
             out.setText("请输入摄氏度");

@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".HelloActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".HelloActivity" />
         <activity android:name=".TeamActivity">
+
+        </activity>
+        <activity android:name=".MoneyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

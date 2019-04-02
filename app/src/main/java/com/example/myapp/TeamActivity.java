@@ -9,22 +9,32 @@ import android.widget.TextView;
 
 public class TeamActivity extends AppCompatActivity implements View.OnClickListener {
     TextView textV2;
+    TextView textV4;
     Button pot1,pot2,pot3,reset;
-
+    Button pot1b,pot2b,pot3b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team); //实例化对象
         textV2 =  findViewById(R.id.textV2);
-       // textV2.setText("0");
+        textV4 =  findViewById(R.id.textV4);
+
         pot1 = findViewById(R.id.pot1);
         pot1.setOnClickListener(this);
         pot2 = findViewById(R.id.pot2);
         pot2.setOnClickListener(this);
         pot3 = findViewById(R.id.pot3);
         pot3.setOnClickListener(this);
+
         reset = findViewById(R.id.reset);
         reset.setOnClickListener(this);
+
+        pot1b = findViewById(R.id.pot1b);
+        pot1b.setOnClickListener(this);
+        pot2b = findViewById(R.id.pot2b);
+        pot2b.setOnClickListener(this);
+        pot3b = findViewById(R.id.pot3b);
+        pot3b.setOnClickListener(this);
     }
 
     @Override
@@ -33,6 +43,11 @@ public class TeamActivity extends AppCompatActivity implements View.OnClickListe
         String sum = textV2.getText().toString();
         int c = Integer.valueOf(sum);
         int su = 0;
+
+        String sumb = textV4.getText().toString();
+        int cb = Integer.valueOf(sumb);
+        int sub = 0;
+
         switch (v.getId()) {
             case R.id.pot3:
                 su = c + 3;
@@ -49,8 +64,21 @@ public class TeamActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.reset:
                 su = 0;
                 textV2.setText(""+su);
+                textV4.setText(""+su);
                 break;
 
+            case R.id.pot3b:
+                sub = cb + 3;
+                textV4.setText(sub+"");
+                break;
+            case R.id.pot1b:
+                sub = cb + 1;
+                textV4.setText(""+sub);
+                break;
+            case R.id.pot2b:
+                sub = cb + 2;
+                textV4.setText(""+ sub);
+                break;
         }
     }
 }
