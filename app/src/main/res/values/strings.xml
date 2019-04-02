@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My App</string>
+    <string name="btn_label">结果为</string>
 </resources>
