@@ -14,7 +14,8 @@
         <activity android:name=".TeamActivity">
 
         </activity>
-        <activity android:name=".MoneyActivity">
+        <activity android:name=".MoneyActivity"></activity>
+        <activity android:name=".RateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

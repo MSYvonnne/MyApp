@@ -36,48 +36,43 @@ public class TeamActivity extends AppCompatActivity implements View.OnClickListe
         pot3b = findViewById(R.id.pot3b);
         pot3b.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         Log.i("main", "onClick msg....");
         String sum = textV2.getText().toString();
         int c = Integer.valueOf(sum);
-        int su = 0;
 
         String sumb = textV4.getText().toString();
         int cb = Integer.valueOf(sumb);
-        int sub = 0;
-
+        int su = 0;
         switch (v.getId()) {
             case R.id.pot3:
                 su = c + 3;
-                textV2.setText(su+"");
-                break;
-            case R.id.pot1:
-                su = c + 1;
                 textV2.setText(""+su);
                 break;
             case R.id.pot2:
                 su = c + 2;
                 textV2.setText(""+ su);
                 break;
+            case R.id.pot1:
+                su = c + 1;
+                textV2.setText(""+su);
+                break;
             case R.id.reset:
-                su = 0;
                 textV2.setText(""+su);
                 textV4.setText(""+su);
                 break;
-
             case R.id.pot3b:
-                sub = cb + 3;
-                textV4.setText(sub+"");
+                su = cb + 3;
+                textV4.setText(su+"");
                 break;
             case R.id.pot1b:
-                sub = cb + 1;
-                textV4.setText(""+sub);
+                su = cb + 1;
+                textV4.setText(""+su);
                 break;
             case R.id.pot2b:
-                sub = cb + 2;
-                textV4.setText(""+ sub);
+                su = cb + 2;
+                textV4.setText(""+ su);
                 break;
         }
     }
