@@ -14,13 +14,15 @@
         <activity android:name=".TeamActivity">
 
         </activity>
-        <activity android:name=".MoneyActivity"></activity>
-        <activity android:name=".RateActivity">
+        <activity android:name=".MoneyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".RateActivity">
+
         </activity>
     </application>
 

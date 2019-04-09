@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">My App</string>
+    <string name="his_name">Tom Holland</string>
+    <string name="check">check me!</string>
     <string name="btn_label">结果为</string>
     <string name="rmb_hint">Input RMB</string>
     <string name="dollar">Dollar</string>
     <string name="won">Won</string>
     <string name="euro">Euro</string>
-    <string name="rate_hint">Input Rate</string>
+    <string name="save">Save</string>
 </resources>

@@ -8,30 +8,30 @@
     tools:context=".RateActivity">
 
     <EditText
-        android:id="@+id/inp_rmb"
+        android:id="@+id/rate_dollar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="@string/rmb_hint"
+        android:hint="@string/dollar"
         android:inputType="numberDecimal" />
     <EditText
-        android:id="@+id/inp_rate"
+        android:id="@+id/rate_won"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="@string/rate_hint"
+        android:hint="@string/won"
+        android:inputType="numberDecimal" />
+    <EditText
+        android:id="@+id/rate_euro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="@string/euro"
         android:inputType="numberDecimal" />
     <Button
-        android:id="@+id/butn"
-        android:text="@string/btn_label"
-        android:onClick="onClick"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/ans"
-        android:textSize="28dp"
-        android:text=""
-        android:gravity="center"
+        android:id="@+id/save"
+        android:text="@string/save"
+        android:onClick="save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
