@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,8 +46,10 @@ public class MoneyActivity extends AppCompatActivity {
     }
     public void openOne(View btn){
         //start activity
-        Log.i("open","openOne:");
+        openRate();
+    }
 
+    private void openRate() {
         Intent rate= new Intent(this,RateActivity.class);
         rate.putExtra("dollar_rate_key",dollar_rate);
         rate.putExtra("won_rate_key",won_rate);
@@ -59,6 +63,20 @@ public class MoneyActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.rate,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.menu_check){
+            openRate();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode==1 && resultCode==2) {
             Bundle bundle=data.getExtras();
@@ -69,8 +87,6 @@ public class MoneyActivity extends AppCompatActivity {
             Log.i(TAG, "onActivityResult: won_rate=" + won_rate);
             Log.i(TAG, "onActivityResult: euro_rate=" + euro_rate);
         }
-
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 }
