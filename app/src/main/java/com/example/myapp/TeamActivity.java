@@ -1,7 +1,7 @@
 package com.example.myapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +36,28 @@ public class TeamActivity extends AppCompatActivity implements View.OnClickListe
         pot3b = findViewById(R.id.pot3b);
         pot3b.setOnClickListener(this);
     }
+
+    //在旋转后依然保存数据
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String scorea = ((TextView)findViewById(R.id.textV2)).getText().toString();
+        String scoreb = ((TextView)findViewById(R.id.textV4)).getText().toString();
+
+        outState.putString("teamA",scorea);
+        outState.putString("teamB",scoreb);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String scorea = savedInstanceState.getString("teamA");
+        String scoreb = savedInstanceState.getString("teamB");
+
+        ((TextView)findViewById(R.id.textV2)).setText(scorea);
+        ((TextView)findViewById(R.id.textV4)).setText(scoreb);
+    }
+
     @Override
     public void onClick(View v) {
         Log.i("main", "onClick msg....");

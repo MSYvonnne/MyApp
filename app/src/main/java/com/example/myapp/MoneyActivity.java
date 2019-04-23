@@ -16,13 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MoneyActivity extends AppCompatActivity implements Runnable{
 
@@ -55,9 +57,13 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
             @Override
             public void handleMessage(Message msg){
                 if(msg.what==5){
-                    String str = (String) msg.obj;
-                    Log.i(TAG, "handleMessage: msg=" + str);
-                    show.setText(str);
+                    Bundle bdl = (Bundle) msg.obj;
+                    dollar_rate = bdl.getFloat("dol_rate");
+                    won_rate = bdl.getFloat("wo_rate");
+                    euro_rate = bdl.getFloat("eur_rate");
+
+                    Log.i(TAG, "handleMessage: dollar:"+ dollar_rate);
+                    Toast.makeText(MoneyActivity.this,"汇款更新",Toast.LENGTH_SHORT).show();
                 }
                 super.handleMessage(msg);
             }
@@ -140,7 +146,7 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
     @Override
     public void run() {
         Log.i(TAG, "run: 在运行");
-        for (int i=1;i<6;i++){
+        for (int i=1;i<3;i++){
             Log.i(TAG, "run: i=" + i);
             try{
                 Thread.sleep(2000);
@@ -149,15 +155,12 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
             }
         }
 
-        //获取msg对象，用于返回主线程
-        Message msg = handler.obtainMessage();
-        msg.what = 5;
-        msg.obj = "run run run";
-        handler.sendMessage(msg);
+        //用于保存获取的汇率值
+        Bundle bundle = new Bundle();
 
         //获取网页
-        try {
-            URL url= new URL("http://www.boc.cn/sourcedb/whpj/");
+        /*try {
+            URL url= new URL("http://www.usd-cny.com/bankofchina.htm");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             InputStream in = http.getInputStream();
 
@@ -167,13 +170,53 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }catch (IOException e) {
             e.printStackTrace();
+        } */
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect("http://www.usd-cny.com/bankofchina.htm").get();
+            // doc = Jsoup.parse(html);
+            Log.i(TAG, "run: " + doc.title());
+            Elements tables = doc.getElementsByTag("table");
+            /*int i = 1;
+            for(Element table : tables){
+                Log.i(TAG, "run: tables["+i+"]=" + table);
+            }*/
+
+            Element table1 = tables.get(0);
+            Log.i(TAG, "run: table1=" + table1);
+            //获取td中的数据
+            Elements tds = table1.getElementsByTag("td");
+            for(int i = 0;i<tds.size();i+=6){
+                Element td1 = tds.get(i);
+                Element td2 = tds.get(i+5);
+                Log.i(TAG, "run: text=" + td1.text());
+                Log.i(TAG, "run: val=" + td2.text());
+
+                if("美元".equals(td1.text())){
+                    bundle.putFloat("dol_rate",100f/Float.parseFloat(td2.text()));
+                }else if("韩元".equals(td1.text())){
+                    bundle.putFloat("wo_rate",100f/Float.parseFloat(td2.text()));
+                }else if("欧元".equals(td1.text())){
+                    bundle.putFloat("eur_rate",100f/Float.parseFloat(td2.text()));
+                }
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
         }
+        //bundle中保存获取的汇率
+        //获取msg对象，用于返回主线程
+        Message msg = handler.obtainMessage();
+        msg.what = 5;
+        //msg.obj = "run run run";
+        msg.obj = bundle;
+        handler.sendMessage(msg);
     }
     private String inputStream2String(InputStream inputStream) throws IOException {
         final int bufferS = 1024;
         final char[] buffer = new char[bufferS];
         final StringBuffer out = new StringBuffer();
-        Reader in = new InputStreamReader(inputStream,"UTF-8");
+        Reader in = new InputStreamReader(inputStream,"gb2312");
         for (;;){
             int rsz = in.read(buffer,0,buffer.length);
             if(rsz < 0)
