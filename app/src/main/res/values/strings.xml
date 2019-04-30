@@ -8,4 +8,5 @@
     <string name="won">Won</string>
     <string name="euro">Euro</string>
     <string name="save">Save</string>
+    <string name="label_list">open List</string>
 </resources>

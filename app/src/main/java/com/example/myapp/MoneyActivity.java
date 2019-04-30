@@ -3,10 +3,13 @@ package com.example.myapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,16 +28,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MoneyActivity extends AppCompatActivity implements Runnable{
 
     private static final String TAG ="MoneyActivity" ;
+    private String upDate = "";
     EditText rmd;
     TextView show;
     float dollar_rate=1/6.7f;
     float won_rate=500;
     float euro_rate=1/11.0f;
     Handler handler;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +55,21 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
         dollar_rate = abc.getFloat("dollar_key",0.0f);
         won_rate = abc.getFloat("won_key",0.0f);
         euro_rate = abc.getFloat("euro_key",0.0f);
+        upDate = abc.getString("up_date","");
 
-        //开启子线程
-        Thread t = new Thread(this);
-        t.start();
+        //获取当前系统时间
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String todayStr = sdf.format(today);
+
+        Log.i(TAG, "onCreate: sp upDate" + upDate);
+
+        //判断时间
+        if (!todayStr.equals(upDate)){
+            //开启子线程
+            Thread t = new Thread(this);
+            t.start();
+        }
 
         handler = new Handler(){
             @Override
@@ -63,6 +81,16 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
                     euro_rate = bdl.getFloat("eur_rate");
 
                     Log.i(TAG, "handleMessage: dollar:"+ dollar_rate);
+
+                    //保存更新的日期
+                    SharedPreferences abc =getSharedPreferences("myrate",Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = abc.edit();
+                    editor.putFloat("dollar_key",dollar_rate);
+                    editor.putFloat("won_key",won_rate);
+                    editor.putFloat("euro_key",euro_rate);
+                    editor.putString("up_date",todayStr);
+                    editor.apply();
+
                     Toast.makeText(MoneyActivity.this,"汇款更新",Toast.LENGTH_SHORT).show();
                 }
                 super.handleMessage(msg);
@@ -70,6 +98,7 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
         };
 
     }
+
     public void onClick(View v){
         String str = rmd.getText().toString();
         float r=0;
@@ -86,6 +115,7 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
             show.setText(String.format("%.2f",r * euro_rate));
         }
     }
+
     public void openOne(View btn){
         //start activity
         openRate();
@@ -116,6 +146,10 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
         //点击菜单
         if(item.getItemId()==R.id.menu_check){
             openRate();
+        }else if(item.getItemId()==R.id.menu_list){
+            //打开列表窗口
+            Intent list= new Intent(this,RateListActivity.class);
+            startActivity(list);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -154,7 +188,6 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
                 e.printStackTrace();
             }
         }
-
         //用于保存获取的汇率值
         Bundle bundle = new Bundle();
 
@@ -205,6 +238,7 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }
         //bundle中保存获取的汇率
+
         //获取msg对象，用于返回主线程
         Message msg = handler.obtainMessage();
         msg.what = 5;
@@ -212,6 +246,7 @@ public class MoneyActivity extends AppCompatActivity implements Runnable{
         msg.obj = bundle;
         handler.sendMessage(msg);
     }
+
     private String inputStream2String(InputStream inputStream) throws IOException {
         final int bufferS = 1024;
         final char[] buffer = new char[bufferS];
