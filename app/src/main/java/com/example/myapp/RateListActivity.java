@@ -20,7 +20,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class RateListActivity extends ListActivity implements Runnable{
-    //String data[] = {"one","two","three"};
+    String data[] = {"wait a moment"};
     Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class RateListActivity extends ListActivity implements Runnable{
         for(int i=1;i<=100;i++){
             list1.add("item" + i);
         }
-        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,list1);
+        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,data);
         setListAdapter(adapter); //管理list
 
         Thread t = new Thread(this);
@@ -55,9 +55,8 @@ public class RateListActivity extends ListActivity implements Runnable{
 
         Document doc = null;
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             doc = Jsoup.connect("http://www.usd-cny.com/bankofchina.htm").get();
-            // doc = Jsoup.parse(html);
             Log.i(TAG, "run: " + doc.title());
             Elements tables = doc.getElementsByTag("table");
 
@@ -70,7 +69,7 @@ public class RateListActivity extends ListActivity implements Runnable{
                 Element td2 = tds.get(i+5);
                 Log.i(TAG, "run: text=" + td1.text());
                 Log.i(TAG, "run: val=" + td2.text());
-                retList.add(td1.text()+"==>" + td2.text());
+                retList.add("兑换100" +td1.text()+"需要"+ td2.text()+"RMB");
             }
         } catch (IOException e) {
             e.printStackTrace();
