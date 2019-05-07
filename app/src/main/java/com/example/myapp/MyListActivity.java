@@ -16,7 +16,8 @@ public class MyListActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.mylist);
         String data[] = {"one","two","","go"};
 
-        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,data);
+        ListAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_expandable_list_item_1,data);
         listView.setAdapter(adapter);
     }
 }

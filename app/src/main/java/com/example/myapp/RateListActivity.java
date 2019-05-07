@@ -30,7 +30,8 @@ public class RateListActivity extends ListActivity implements Runnable{
         for(int i=1;i<=100;i++){
             list1.add("item" + i);
         }
-        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,data);
+        ListAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_expandable_list_item_1,data);
         setListAdapter(adapter); //管理list
 
         Thread t = new Thread(this);
@@ -41,7 +42,8 @@ public class RateListActivity extends ListActivity implements Runnable{
             public void handleMessage(Message msg) {
                 if(msg.what==7){
                     List<String> list2 = (List<String>)msg.obj;
-                    ListAdapter adapter = new ArrayAdapter<String>(RateListActivity.this,android.R.layout.simple_expandable_list_item_1,list2);
+                    ListAdapter adapter = new ArrayAdapter<String>(RateListActivity.this,
+                            android.R.layout.simple_expandable_list_item_1,list2);
                     setListAdapter(adapter);
                 }
             }
