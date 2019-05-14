@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapp">
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -23,9 +22,9 @@
         </activity>
         <activity android:name=".RateActivity" />
         <activity android:name=".RateListActivity" />
-        <activity android:name=".MyListActivity" />
+        <activity android:name=".MyListActivity" ></activity>
         <activity android:name=".MyList2Activity" />
-        <activity android:name=".RateCalcActivity"></activity>
+        <activity android:name=".RateCalcActivity" android:theme="@style/Base.Theme.AppCompat.Dialog"></activity>
     </application>
 
 </manifest>
