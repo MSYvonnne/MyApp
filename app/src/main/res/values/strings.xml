@@ -11,4 +11,7 @@
     <string name="label_list">open List</string>
     <string name="hello">Hello</string>
     <string name="noData">No Data</string>
+    <string name="home">首页</string>
+    <string name="func">功能</string>
+    <string name="setting">设置</string>
 </resources>
