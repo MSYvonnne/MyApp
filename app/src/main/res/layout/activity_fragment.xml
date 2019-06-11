@@ -34,21 +34,21 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioHome"
-            style="@style/my_style"
-            android:drawableTop="@drawable/check"
-            android:text="@string/home" />
-
-        <RadioButton
             android:id="@+id/radioFunc"
             style="@style/my_style"
-            android:drawableTop="@drawable/check"
+            android:drawableTop="@drawable/ic_control_point_black_24dp"
             android:text="@string/func" />
+
+        <RadioButton
+            android:id="@+id/radioHome"
+            style="@style/my_style"
+            android:drawableTop="@drawable/ic_insert_emoticon_black_24dp"
+            android:text="@string/home" />
 
         <RadioButton
             android:id="@+id/radioSetting"
             style="@style/my_style"
-            android:drawableTop="@drawable/check"
+            android:drawableTop="@drawable/ic_more_horiz_black_24dp"
             android:text="@string/setting" />
     </RadioGroup>
 

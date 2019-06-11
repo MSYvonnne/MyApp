@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapp">
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,21 +14,20 @@
         <activity android:name=".HelloActivity" />
         <activity android:name=".TeamActivity" />
         <activity android:name=".MoneyActivity">
-
-        </activity>
-        <activity android:name=".RateActivity" />
-        <activity android:name=".RateListActivity" />
-        <activity android:name=".MyListActivity" />
-        <activity android:name=".MyList2Activity" />
-        <activity
-            android:name=".RateCalcActivity"
-            android:theme="@style/Base.Theme.AppCompat.Dialog" />
-        <activity android:name=".FragmentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".RateActivity" />
+        <activity android:name=".RateListActivity" />
+        <activity android:name=".MyListActivity" />
+        <activity android:name=".MyList2Activity" />
+        <activity android:name=".RateCalcActivity"
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+        <activity android:name=".FragmentActivity">
+
         </activity>
     </application>
 
